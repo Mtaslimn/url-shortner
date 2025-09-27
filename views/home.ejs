@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shlinks</title>
+    <link rel="stylesheet" href="/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://api.fontshare.com/v2/css?f[]=panchang@300&display=swap" rel="stylesheet">
+    <style>
+        .font-custom { font-family: 'Panchang', sans-serif; }
+        .custom-txt { color: #e2e8f0; }
+
+        .fixed-container {
+            max-width: 1200px;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .glass-hero {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4), rgba(30, 41, 59, 0.2));
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+        
+        .glass-input {
+            background: rgba(248, 250, 252, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        
+        .glass-button {
+            background: linear-gradient(135deg, #0d9488, #0f766e);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(13, 148, 136, 0.4);
+        }
+        
+        .glass-button:hover {
+            background: linear-gradient(135deg, #0f766e, #134e4a);
+            box-shadow: 0 6px 20px rgba(13, 148, 136, 0.6);
+        }
+
+        .glass-result {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.4), rgba(30, 41, 59, 0.2));
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-delete {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.1));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .glass-delete:hover {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(185, 28, 28, 0.2));
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+        
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            backdrop-filter: blur(20px);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-orb:nth-child(1) { width: 200px; height: 200px; top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-orb:nth-child(2) { width: 150px; height: 150px; top: 60%; right: 15%; animation-delay: 2s; }
+        .floating-orb:nth-child(3) { width: 100px; height: 100px; bottom: 20%; left: 20%; animation-delay: 4s; }
+        
+        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(180deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
+        
+        .gradient-text { background: linear-gradient(135deg, #ffffff, #cbd5e1, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .gradient-text-accent { background: linear-gradient(135deg, #0d9488, #06b6d4, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+        @media (max-width: 768px) {
+            .floating-orb { display: none; }
+            .fixed-container { width: 95%; }
+            .gradient-text { font-size: 2rem; line-height: 1.2; }
+        }
+    </style>
+</head>
+<body class="m-0 p-0 bg-slate-950 relative overflow-x-hidden">
+    <div class="floating-orb"></div>
+    <div class="floating-orb"></div>
+    <div class="floating-orb"></div>
+    
+    <div class="min-h-screen p-2 sm:p-5 relative z-10">
+        <nav class="fixed top-0 left-0 w-full py-4 glass-nav transition-all duration-300 hover:shadow-2xl">
+            <div class="fixed-container mx-auto flex justify-center">
+                <a href="#" class="flex gap-2 items-center group">
+                    <i class="fa-solid fa-star-of-life text-white text-xl group-hover:rotate-180 transition-transform duration-300"></i>
+                    <span class="custom-txt font-custom text-2xl font-semibold">Shlinks</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="pt-16">
+            <div class="fixed-container mx-auto mt-4 sm:mt-6 rounded-3xl glass-hero p-6 sm:p-8 transition-all duration-300 hover:shadow-2xl">
+                <div class="flex flex-col items-center justify-center gap-6 sm:gap-8">
+                    <h2 class="gradient-text text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-center leading-tight">
+                        Welcome to <span class="gradient-text-accent">Shlinks</span>
+                    </h2>
+                    <p class="text-gray-300 text-lg sm:text-xl md:text-2xl text-center max-w-2xl leading-relaxed px-4">
+                        Transform your long URLs into clean, shareable links with our free link shortening service
+                    </p>
+                </div>
+
+                <div id="search-bar" class="mt-6 sm:mt-8 flex flex-col items-center gap-6">
+                    <div class="flex flex-col gap-4 w-full max-w-2xl px-4 sm:px-0">
+                        <form method="POST" action="/url" id="shorten-form" class="w-full">
+                            <input 
+                                id="url-input"
+                                type="url" 
+                                name="url"
+                                placeholder="Enter your long URL here..." 
+                                class="glass-input px-4 sm:px-6 py-3 sm:py-4 text-gray-900 rounded-2xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300 placeholder-gray-500 w-full text-base sm:text-lg shadow-lg"
+                                required
+                            >
+                            <button 
+                                type="submit"
+                                class="glass-button px-6 sm:px-8 py-3 sm:py-4 text-white font-semibold rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 w-full mt-4 text-base sm:text-lg" 
+                                aria-label="Shorten URL"
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                                Generate
+                            </button>
+                        </form>
+                        <div id="new-links"></div> <!-- Container for new links and analytics -->
+                    </div>
+                    
+                    <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mt-6 sm:mt-8 text-xs sm:text-sm text-gray-400 px-4">
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i><span>Free Forever</span></div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i><span>No Registration</span></div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i><span>Custom Links</span></div>
+                        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-teal-400"></i><span>Analytics</span></div>
+                    </div>
+                </div>
+
+                <% if (locals.urls && urls.length > 0) { %>
+                    <div id="results-section" class="mt-8 sm:mt-12">
+                        <div class="glass-result rounded-3xl p-6 sm:p-8 transition-all duration-300">
+                            <h3 class="text-white text-xl sm:text-2xl font-bold mb-6 text-center">Your Shortened URLs</h3>
+                            <table class="w-full text-center">
+                                <thead>
+                                    <tr class="bg-neutral-800/50">
+                                        <th class="border border-neutral-600 p-3 text-white">S.No</th>
+                                        <th class="border border-neutral-600 p-3 text-white">Short ID</th>
+                                        <th class="border border-neutral-600 p-3 text-white">Redirect URL</th>
+                                        <th class="border border-neutral-600 p-3 text-white">Clicks</th>
+                                        <th class="border border-neutral-600 p-3 text-white">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% urls.forEach((url, index) => { %>
+                                        <tr class="hover:bg-neutral-800/30 transition-colors duration-200">
+                                            <td class="border border-neutral-600 p-3 text-white"><%= index + 1 %></td>
+                                            <td class="border border-neutral-600 p-3 text-white">
+                                                <a href="/url/<%= url.shortId %>" target="_blank" class="text-teal-400 hover:underline">
+                                                    <%= url.shortId %>
+                                                </a>
+                                            </td>
+                                            <td class="border border-neutral-600 p-3 text-white break-all"><%= url.redirectURL %></td>
+                                            <td class="border border-neutral-600 p-3 text-white"><%= url.visitHistory.length %></td>
+                                            <td class="border border-neutral-600 p-3">
+                                                <form action="/url/delete/<%= url.shortId %>" method="POST" class="delete-form" style="display:inline;">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button 
+                                                        type="submit"
+                                                        class="glass-delete px-3 py-1.5 text-red-300 text-sm rounded-lg flex items-center justify-center gap-2 transition-all duration-300"
+                                                    >
+                                                        <i class="fa-solid fa-trash"></i>
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        
+        <div class="h-16 sm:h-32"></div>
+    </div>
+
+    <script>
+        // Handle DELETE requests only for delete forms
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const response = await fetch(form.action, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Error deleting URL');
+                }
+            });
+        });
+
+        // Handle shortening with fetch and display analytics
+        document.getElementById('shorten-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new URLSearchParams(new FormData(e.target));
+            const response = await fetch('/url', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData
+            });
+            if (response.ok) {
+                const { id } = await response.json();
+                const newLinkDiv = document.createElement('div');
+                newLinkDiv.id = `new-link-${id}`;
+                newLinkDiv.className = 'glass-result rounded-2xl p-4 sm:p-6 text-center mb-4';
+                newLinkDiv.innerHTML = `
+                    <p class="text-white">
+                        URL Generated: 
+                        <a href="http://localhost:8001/url/${id}" target="_blank" class="text-teal-400 hover:underline">
+                            http://localhost:8001/url/${id}
+                        </a>
+                    </p>
+                    <div id="analytics-${id}" class="mt-2 text-white text-sm">
+                        <p>Loading analytics...</p>
+                    </div>
+                `;
+                document.getElementById('new-links').appendChild(newLinkDiv);
+                await fetchAnalytics(id);
+            } else {
+                const error = await response.json();
+                alert(`Error shortening URL: ${error.error || 'Unknown error'}`);
+            }
+        });
+
+        async function fetchAnalytics(shortId) {
+            const response = await fetch(`/url/analytics/${shortId}`);
+            if (response.ok) {
+                const { totalClicks, analytics } = await response.json();
+                const analyticsDiv = document.getElementById(`analytics-${shortId}`);
+                if (analyticsDiv) {
+                    analyticsDiv.innerHTML = `
+                        <p>Total Clicks: ${totalClicks}</p>
+                        <p>Visit History: ${analytics.map(v => new Date(v.timestamp).toLocaleString()).join(', ') || 'No visits yet'}</p>
+                    `;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@layer base{
+    .custom-txt{
+        @apply text-white text-4xl;
+    }
+}

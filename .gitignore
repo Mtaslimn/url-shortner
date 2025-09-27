@@ -1,0 +1,6 @@
+node_modules/
+.env
+*.log
+public/output.css  # Rebuild on deploy
+.DS_Store  # Mac files
+.vscode/   # Ignore VS Code folder
