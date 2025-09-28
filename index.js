@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const methodOverride = require('method-override');
-const { connectomongodb, connectomongodb } = require('./connect');
+const { connectomongodb,} = require('./connect');
 const URL = require('./models/url');
 
 // Import routers
