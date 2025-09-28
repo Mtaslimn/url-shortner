@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build": "tailwindcss -i ./views/input.css -o ./public/output.css --minify"
+    "build": "tailwindcss -i ./views/input.css -o ./public/output.css --minify",
+    "watch:css": "npx tailwindcss -i ./views/input.css -o ./public/output.css --watch"
   },
   "author": "",
   "license": "ISC",
