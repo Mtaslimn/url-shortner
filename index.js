@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const methodOverride = require('method-override');
-const { connectToMongoDB } = require('./connect');
+const { connectomongodb, connectomongodb } = require('./connect');
 const URL = require('./models/url');
 
 // Import routers
@@ -14,7 +14,7 @@ const app = express();
 const PORT = process.env.PORT; // No fallback; Render provides PORT
 
 // MongoDB connection
-connectToMongoDB(process.env.MONGODB_URI || "mongodb://localhost:27017/short-url")
+connectomongodb(process.env.MONGODB_URI || "mongodb://localhost:27017/short-url")
   .then(() => console.log("✅ MongoDB Connected Successfully"))
   .catch(err => {
     console.error("❌ MongoDB Connection Failed:", err.message);
