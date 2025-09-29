@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const methodOverride = require('method-override');
-const { connectomongodb,} = require('./connect');
+const { connectomongodb } = require('./connect');
 const URL = require('./models/url');
 
 // Import routers
@@ -11,7 +11,7 @@ const urlRoute = require('./routes/url');
 const staticRoute = require('./routes/staticRouter');
 
 const app = express();
-const PORT = process.env.PORT; // No fallback; Render provides PORT
+const PORT = process.env.PORT || 8001; // FIXED: Added fallback port
 
 // MongoDB connection
 connectomongodb(process.env.MONGODB_URI || "mongodb://localhost:27017/short-url")
@@ -66,4 +66,7 @@ app.use((err, req, res, next) => {
 // Start server on 0.0.0.0 for Render
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server Started on port ${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
+
+module.exports = app;
