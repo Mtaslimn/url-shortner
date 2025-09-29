@@ -85,10 +85,63 @@
         .gradient-text { background: linear-gradient(135deg, #ffffff, #cbd5e1, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .gradient-text-accent { background: linear-gradient(135deg, #0d9488, #06b6d4, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
+        /* Responsive table styles */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 1rem;
+        }
+
+        .responsive-table {
+            min-width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        /* Mobile responsive styles */
         @media (max-width: 768px) {
             .floating-orb { display: none; }
             .fixed-container { width: 95%; }
             .gradient-text { font-size: 2rem; line-height: 1.2; }
+            
+            .responsive-table th,
+            .responsive-table td {
+                padding: 8px 4px;
+                font-size: 12px;
+                border: 1px solid rgba(148, 163, 184, 0.3);
+            }
+            
+            .responsive-table th:first-child,
+            .responsive-table td:first-child {
+                min-width: 40px;
+            }
+            
+            .responsive-table th:nth-child(2),
+            .responsive-table td:nth-child(2) {
+                min-width: 100px;
+            }
+            
+            .responsive-table th:nth-child(3),
+            .responsive-table td:nth-child(3) {
+                min-width: 150px;
+            }
+            
+            .glass-delete {
+                padding: 6px 8px;
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 570px) {
+            .table-container {
+                margin: 0 -16px;
+                border-radius: 0;
+            }
+            
+            .responsive-table {
+                width: 100%;
+                min-width: 500px;
+            }
         }
     </style>
 </head>
@@ -140,7 +193,7 @@
                                 Generate
                             </button>
                         </form>
-                        <div id="new-links"></div> <!-- Container for new links and analytics -->
+                        <div id="new-links"></div>
                     </div>
                     
                     <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mt-6 sm:mt-8 text-xs sm:text-sm text-gray-400 px-4">
@@ -155,43 +208,45 @@
                     <div id="results-section" class="mt-8 sm:mt-12">
                         <div class="glass-result rounded-3xl p-6 sm:p-8 transition-all duration-300">
                             <h3 class="text-white text-xl sm:text-2xl font-bold mb-6 text-center">Your Shortened URLs</h3>
-                            <table class="w-full text-center">
-                                <thead>
-                                    <tr class="bg-neutral-800/50">
-                                        <th class="border border-neutral-600 p-3 text-white">S.No</th>
-                                        <th class="border border-neutral-600 p-3 text-white">Short ID</th>
-                                        <th class="border border-neutral-600 p-3 text-white">Redirect URL</th>
-                                        <th class="border border-neutral-600 p-3 text-white">Clicks</th>
-                                        <th class="border border-neutral-600 p-3 text-white">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% urls.forEach((url, index) => { %>
-                                        <tr class="hover:bg-neutral-800/30 transition-colors duration-200">
-                                            <td class="border border-neutral-600 p-3 text-white"><%= index + 1 %></td>
-                                            <td class="border border-neutral-600 p-3 text-white">
-                                                <a href="/url/<%= url.shortId %>" target="_blank" class="text-teal-400 hover:underline">
-                                                    <%= url.shortId %>
-                                                </a>
-                                            </td>
-                                            <td class="border border-neutral-600 p-3 text-white break-all"><%= url.redirectURL %></td>
-                                            <td class="border border-neutral-600 p-3 text-white"><%= url.visitHistory.length %></td>
-                                            <td class="border border-neutral-600 p-3">
-                                                <form action="/url/delete/<%= url.shortId %>" method="POST" class="delete-form" style="display:inline;">
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <button 
-                                                        type="submit"
-                                                        class="glass-delete px-3 py-1.5 text-red-300 text-sm rounded-lg flex items-center justify-center gap-2 transition-all duration-300"
-                                                    >
-                                                        <i class="fa-solid fa-trash"></i>
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            </td>
+                            <div class="table-container">
+                                <table class="responsive-table w-full text-center">
+                                    <thead>
+                                        <tr class="bg-neutral-800/50">
+                                            <th class="border border-neutral-600 p-3 text-white">S.No</th>
+                                            <th class="border border-neutral-600 p-3 text-white">Short ID</th>
+                                            <th class="border border-neutral-600 p-3 text-white">Redirect URL</th>
+                                            <th class="border border-neutral-600 p-3 text-white">Clicks</th>
+                                            <th class="border border-neutral-600 p-3 text-white">Actions</th>
                                         </tr>
-                                    <% }) %>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <% urls.forEach((url, index) => { %>
+                                            <tr class="hover:bg-neutral-800/30 transition-colors duration-200" data-shortid="<%= url.shortId %>">
+                                                <td class="border border-neutral-600 p-3 text-white"><%= index + 1 %></td>
+                                                <td class="border border-neutral-600 p-3 text-white">
+                                                    <a href="/<%= url.shortId %>" target="_blank" class="text-teal-400 hover:underline">
+                                                        <%= url.shortId %>
+                                                    </a>
+                                                </td>
+                                                <td class="border border-neutral-600 p-3 text-white break-all"><%= url.redirectURL %></td>
+                                                <td class="border border-neutral-600 p-3 text-white click-count"><%= url.visitHistory.length %></td>
+                                                <td class="border border-neutral-600 p-3">
+                                                    <form action="/url/delete/<%= url.shortId %>" method="POST" class="delete-form" style="display:inline;">
+                                                        <input type="hidden" name="_method" value="DELETE">
+                                                        <button 
+                                                            type="submit"
+                                                            class="glass-delete px-3 py-1.5 text-red-300 text-sm rounded-lg flex items-center justify-center gap-2 transition-all duration-300"
+                                                        >
+                                                            <i class="fa-solid fa-trash"></i>
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 <% } %>
@@ -202,69 +257,116 @@
     </div>
 
     <script>
-        // Handle DELETE requests only for delete forms
-        // Handle DELETE requests only for delete forms
-document.querySelectorAll('.delete-form').forEach(form => {
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const response = await fetch(form.action, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' }
+        // Auto-refresh analytics every 5 seconds
+        setInterval(updateAnalytics, 5000);
+
+        // Handle DELETE requests
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const response = await fetch(form.action, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    alert('Error deleting URL');
+                }
+            });
         });
-        if (response.ok) {
-            location.reload();
-        } else {
-            alert('Error deleting URL');
-        }
-    });
-});
 
-// Handle shortening with fetch and display analytics
-document.getElementById('shorten-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new URLSearchParams(new FormData(e.target));
-    const response = await fetch('/url', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData
-    });
-    if (response.ok) {
-        const { shortUrl } = await response.json(); // Use shortUrl from response
-        const newLinkDiv = document.createElement('div');
-        newLinkDiv.id = `new-link-${shortUrl.split('/').pop()}`;
-        newLinkDiv.className = 'glass-result rounded-2xl p-4 sm:p-6 text-center mb-4';
-        newLinkDiv.innerHTML = `
-            <p class="text-white">
-                URL Generated: 
-                <a href="${shortUrl}" target="_blank" class="text-teal-400 hover:underline">
-                    ${shortUrl}
-                </a>
-            </p>
-            <div id="analytics-${shortUrl.split('/').pop()}" class="mt-2 text-white text-sm">
-                <p>Loading analytics...</p>
-            </div>
-        `;
-        document.getElementById('new-links').appendChild(newLinkDiv);
-        await fetchAnalytics(shortUrl.split('/').pop());
-    } else {
-        const error = await response.json();
-        alert(`Error shortening URL: ${error.error || 'Unknown error'}`);
-    }
-});
+        // Handle shortening with fetch and display analytics
+        document.getElementById('shorten-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new URLSearchParams(new FormData(e.target));
+            const response = await fetch('/url', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: formData
+            });
+            if (response.ok) {
+                const { shortUrl, id } = await response.json();
+                const newLinkDiv = document.createElement('div');
+                newLinkDiv.id = `new-link-${id}`;
+                newLinkDiv.className = 'glass-result rounded-2xl p-4 sm:p-6 text-center mb-4';
+                newLinkDiv.innerHTML = `
+                    <p class="text-white">
+                        URL Generated: 
+                        <a href="${shortUrl}" target="_blank" class="text-teal-400 hover:underline">
+                            ${shortUrl}
+                        </a>
+                    </p>
+                    <div id="analytics-${id}" class="mt-2 text-white text-sm">
+                        <p>Total Clicks: 0</p>
+                        <p>Visit History: No visits yet</p>
+                    </div>
+                `;
+                document.getElementById('new-links').appendChild(newLinkDiv);
+                
+                // Start real-time analytics for new URL
+                startAnalyticsPolling(id);
+                
+                // Clear form
+                document.getElementById('url-input').value = '';
+                
+                // Refresh page after 2 seconds to show in table
+                setTimeout(() => location.reload(), 2000);
+            } else {
+                const error = await response.json();
+                alert(`Error shortening URL: ${error.error || 'Unknown error'}`);
+            }
+        });
 
-async function fetchAnalytics(shortId) {
-    const response = await fetch(`/url/analytics/${shortId}`);
-    if (response.ok) {
-        const { totalClicks, analytics } = await response.json();
-        const analyticsDiv = document.getElementById(`analytics-${shortId}`);
-        if (analyticsDiv) {
-            analyticsDiv.innerHTML = `
-                <p>Total Clicks: ${totalClicks}</p>
-                <p>Visit History: ${analytics.map(v => new Date(v.timestamp).toLocaleString()).join(', ') || 'No visits yet'}</p>
-            `;
+        // Function to start polling analytics for a specific shortId
+        function startAnalyticsPolling(shortId) {
+            const interval = setInterval(async () => {
+                const analyticsDiv = document.getElementById(`analytics-${shortId}`);
+                if (!analyticsDiv) {
+                    clearInterval(interval);
+                    return;
+                }
+                
+                await fetchAndUpdateAnalytics(shortId);
+            }, 3000);
         }
-    }
-}
+
+        // Fetch and update analytics for a specific URL
+        async function fetchAndUpdateAnalytics(shortId) {
+            try {
+                const response = await fetch(`/url/analytics/${shortId}`);
+                if (response.ok) {
+                    const { totalClicks, analytics } = await response.json();
+                    const analyticsDiv = document.getElementById(`analytics-${shortId}`);
+                    if (analyticsDiv) {
+                        analyticsDiv.innerHTML = `
+                            <p>Total Clicks: ${totalClicks}</p>
+                            <p>Visit History: ${analytics.length > 0 ? analytics.map(v => new Date(v.timestamp).toLocaleString()).join(', ') : 'No visits yet'}</p>
+                        `;
+                    }
+                    
+                    // Update table click count if exists
+                    const tableRow = document.querySelector(`tr[data-shortid="${shortId}"]`);
+                    if (tableRow) {
+                        const clickCountCell = tableRow.querySelector('.click-count');
+                        if (clickCountCell) {
+                            clickCountCell.textContent = totalClicks;
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching analytics:', error);
+            }
+        }
+
+        // Update analytics for all URLs in the table
+        async function updateAnalytics() {
+            const rows = document.querySelectorAll('tr[data-shortid]');
+            rows.forEach(row => {
+                const shortId = row.getAttribute('data-shortid');
+                fetchAndUpdateAnalytics(shortId);
+            });
+        }
     </script>
 </body>
 </html>
