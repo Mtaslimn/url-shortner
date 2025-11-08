@@ -1,6 +1,7 @@
 # URL Shortener
 
 A simple, efficient URL shortener built with Node.js, Express, and MongoDB. It allows users to shorten long URLs, track clicks, view analytics, and delete links. Deployed on Render for easy access.
+check it out https://lnkd.in/gthTjH3p
 
 ## Features
 - **URL Shortening**: Generate short, shareable links from long URLs.
